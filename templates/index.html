@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -12,30 +12,36 @@
     <!--        }-->
     <!--    </style>-->
 </head>
-
-<body>
-<h2 align="center">FlaskBI</h2>
+{#background-color:#333333;margin:0 auto;#}
+<body style="width:1900px;">
+<h2 style="text-align:center;">FlaskBI</h2>
 <form action="" method=get>
     <div>
-        <select name="" id="testselect" onchange=freshChart()>
-            <option selected value="43">苹果</option>
-            <option value="83">葡萄</option>
-            <option value="83">香蕉</option>
-            <!-- {% for i  in select_box %}
+        <label for="testselect"></label><select name="" id="testselect" onchange=freshChart()>
+        <option selected value="43">苹果</option>
+        <option value="83">葡萄</option>
+        <option value="83">香蕉</option>
+        <!-- {% for i  in select_box %}
                 <option value="" id="idselect" name="adsense">{{ i.zone_name }}</option>
                 {% endfor %} -->
-        </select>
+    </select>
         <!-- <button type="submit"  id="submit_data" >查询</button> -->
     </div>
 </form>
 
 
 <!--使用div放置图表位置-->
-<div id="pie" style="position:absolute;left:40%;top:400px;width:500px; height:400px;"></div>
-<div id="gauge" style="position:absolute;left:10%;top:400px;width:500px; height:400px;"></div>
+<div id="pie" style="position:absolute;left:400px;top:100px;width:500px; height:400px;"></div>
+<div id="gauge" style="position:absolute;left:400px;top:400px;width:500px; height:400px;"></div>
 <div id="bars" style="position:absolute;right:100px;top:200px;width:500px; height:400px;"></div>
 <div id="table" style="position:absolute;right:100px;top:600px;width:500px; height:400px;"></div>
+<div id="text"
+     style="border-width: 3px ; width: 300px; height: 100px ; padding:10px;
+     border-style:solid;border-color:#444444;text-align: center;border-radius: 5px;">
+    <span style="color: rgb(3, 255, 255);font-size:6mm; ">我字体大小为2</span><br>
+    <span style="color: rgb(45, 255, 255);font-size: 10mm; ">我字体大小为5</span>
 
+</div>
 <script>
     $(function () {
         freshChart();
@@ -74,7 +80,6 @@
 
     function TableDraw(divid, drawUrl) {
         let values = document.getElementById("testselect").value
-        console.log("kaitou");
         $.ajax({
             type: "POST",
             url: drawUrl,
@@ -82,12 +87,8 @@
             dataType: 'json',
             traditional: true,
             success: function (result) {
-
+                {#console.log(result)#}
                 document.querySelector("#" + divid).innerHTML = result.data;
-            },
-            error: result => {
-                let box = document.querySelector("#" + divid)
-                box.innerHTML = result.responseText;
             }
         });
     }
@@ -96,7 +97,6 @@
         echartDraw('gauge', 'white', "http://127.0.0.1:5000/gaugeChart")
         echartDraw('pie', 'white', "http://127.0.0.1:5000/pieChart")
         TableDraw('table', "http://127.0.0.1:5000/table")
-
         echartDraw('bars', 'white', "http://127.0.0.1:5000/barChart")
     }
 </script>
