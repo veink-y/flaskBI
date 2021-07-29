@@ -33,13 +33,12 @@
 <!--使用div放置图表位置-->
 <div id="pie" style="position:absolute;left:400px;top:100px;width:500px; height:400px;"></div>
 <div id="gauge" style="position:absolute;left:400px;top:400px;width:500px; height:400px;"></div>
-<div id="bars" style="position:absolute;right:100px;top:200px;width:500px; height:400px;"></div>
+<div id="bars" style="position:absolute;right:10px;top:200px;width:500px; height:400px;"></div>
 <div id="table" style="position:absolute;right:100px;top:600px;width:500px; height:400px;"></div>
-<div id="text"
-     style="border-width: 3px ; width: 300px; height: 100px ; padding:10px;
+<div id="text" style="border-width: 3px ; width: 300px; height: 100px ; padding:10px;
      border-style:solid;border-color:#444444;text-align: center;border-radius: 5px;">
-    <span style="color: rgb(3, 255, 255);font-size:6mm; ">我字体大小为2</span><br>
-    <span style="color: rgb(45, 255, 255);font-size: 10mm; ">我字体大小为5</span>
+    <span style="color: rgb(3, 255, 255);font-size:5mm; ">最新WARNING时间</span><br>
+    <span id="textvalue" style="color: rgb(45, 255, 255);font-size: 5mm; "></span>
 
 </div>
 <script>
@@ -93,11 +92,16 @@
         });
     }
 
+    function TextDraw(divid, drawUrl) {
+        document.querySelector("#" + divid).innerHTML = drawUrl;
+    }
+
     function freshChart() {
         echartDraw('gauge', 'white', "http://127.0.0.1:5000/gaugeChart")
         echartDraw('pie', 'white', "http://127.0.0.1:5000/pieChart")
         TableDraw('table', "http://127.0.0.1:5000/table")
         echartDraw('bars', 'white', "http://127.0.0.1:5000/barChart")
+        TextDraw('textvalue', '2021-07-23 15:32:32')
     }
 </script>
 
