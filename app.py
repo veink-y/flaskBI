@@ -35,7 +35,6 @@ def get_table():
 @app.route("/gaugeChart", methods=["POST"])
 def get_gauge_chart():
     y = float(request.form['value'])
-    print(request.form.getlist('select2'))
     return gauge_base(y).dump_options_with_quotes()
 
 
