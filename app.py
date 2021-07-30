@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
-from chart import bar_base, gauge_base, pie_base, table_base
+from chart import bar_base, gauge_base, pie_base, table_base, stack_line_base, wordcnt_base
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -30,6 +30,16 @@ def get_pie_chart():
 @app.route("/table", methods=['GET', "POST"])
 def get_table():
     return {"data": table_base().html_content}
+
+
+@app.route("/stackline", methods=['GET', "POST"])
+def get_stackline():
+    return stack_line_base().dump_options_with_quotes()
+
+
+@app.route("/wordcnt", methods=['GET', "POST"])
+def get_wordcnt():
+    return wordcnt_base().dump_options_with_quotes()
 
 
 @app.route("/gaugeChart", methods=["POST"])

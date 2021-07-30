@@ -1,10 +1,12 @@
 from random import randrange
 from pyecharts import options as opts
-from pyecharts.charts import Bar, Gauge, Pie
+from pyecharts.charts import Bar, Gauge, Pie, Line, WordCloud
 from sqlalchemy import create_engine
 from pyecharts.commons.utils import JsCode
 from pyecharts.components import Table
 from pyecharts.options import ComponentTitleOpts
+
+from pyecharts.globals import SymbolType
 
 sqlite_engine = create_engine('sqlite:///log.db')
 
@@ -92,6 +94,92 @@ def pie_base():
             center=["55%", "70%"],
             radius=[60, 80],
             # label_opts=new_label_opts(),
+        )
+    )
+    return c
+
+
+def wordcnt_base():
+    words = [
+        ("Sam S Club", 10000),
+        ("Macys", 6181),
+        ("Amy Schumer", 4386),
+        ("Jurassic World", 4055),
+        ("Charter Communications", 2467),
+        ("Chick Fil A", 2244),
+        ("Planet Fitness", 1868),
+        ("Pitch Perfect", 1484),
+        ("Express", 1112),
+        ("Home", 865),
+        ("Johnny Depp", 847),
+        ("Lena Dunham", 582),
+        ("Lewis Hamilton", 555),
+        ("KXAN", 550),
+        ("Mary Ellen Mark", 462),
+        ("Farrah Abraham", 366),
+        ("Rita Ora", 360),
+        ("Serena Williams", 282),
+        ("NCAA baseball tournament", 273),
+        ("Point Break", 265),
+    ]
+    c = (
+        WordCloud()
+            .add("", words, word_size_range=[20, 100], shape=SymbolType.DIAMOND)
+    )
+    return c
+
+
+def stack_line_base():
+    x_data = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+    y_data = [820, 932, 901, 934, 1290, 1330, 1320]
+
+    c = (
+        Line()
+            .add_xaxis(xaxis_data=x_data)
+            .add_yaxis(
+            series_name="邮件营销",
+            stack="总量",
+            y_axis=[120, 132, 101, 134, 90, 230, 210],
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+            label_opts=opts.LabelOpts(is_show=False),
+        )
+            .add_yaxis(
+            series_name="联盟广告",
+            stack="总量",
+            y_axis=[220, 182, 191, 234, 290, 330, 310],
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+            label_opts=opts.LabelOpts(is_show=False),
+        )
+            .add_yaxis(
+            series_name="视频广告",
+            stack="总量",
+            y_axis=[150, 232, 201, 154, 190, 330, 410],
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+            label_opts=opts.LabelOpts(is_show=False),
+        )
+            .add_yaxis(
+            series_name="直接访问",
+            stack="总量",
+            y_axis=[320, 332, 301, 334, 390, 330, 320],
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+            label_opts=opts.LabelOpts(is_show=False),
+        )
+            .add_yaxis(
+            series_name="搜索引擎",
+            stack="总量",
+            y_axis=[820, 932, 901, 934, 1290, 1330, 1320],
+            areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+            label_opts=opts.LabelOpts(is_show=True, position="top"),
+        )
+            .set_global_opts(
+            title_opts=opts.TitleOpts(title="堆叠区域图"),
+            tooltip_opts=opts.TooltipOpts(trigger="axis", axis_pointer_type="cross"),
+            yaxis_opts=opts.AxisOpts(
+                type_="value",
+                axistick_opts=opts.AxisTickOpts(is_show=True),
+                splitline_opts=opts.SplitLineOpts(is_show=True),
+            ),
+            xaxis_opts=opts.AxisOpts(type_="category", boundary_gap=False),
         )
     )
     return c

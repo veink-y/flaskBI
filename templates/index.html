@@ -6,6 +6,7 @@
     <title>Awesome-pyecharts</title>
     <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts-wordcloud.min.js"></script>
     <!--    <style>-->
     <!--        select {-->
     <!--            border: none;-->
@@ -13,7 +14,7 @@
     <!--    </style>-->
 </head>
 {#background-color:#333333;margin:0 auto;#}
-<body style="width:1900px;">
+<body style="width:1880px;">
 <h2 style="text-align:center;">FlaskBI</h2>
 <form action="" method=get>
     <div>
@@ -34,10 +35,13 @@
 <div id="pie" style="position:absolute;left:400px;top:100px;width:500px; height:400px;"></div>
 <div id="gauge" style="position:absolute;left:400px;top:400px;width:500px; height:400px;"></div>
 <div id="bars" style="position:absolute;right:10px;top:200px;width:500px; height:400px;"></div>
+<div id="stackline" style="position:absolute;right:10px;top:600px;width:500px; height:400px;"></div>
+<div id="wordcnt" style="position:absolute;left:600px;top:600px;width:500px; height:400px;"></div>
+
 <div id="table" style="position:absolute;right:100px;top:600px;width:500px; height:400px;"></div>
-<div id="text" style="border-width: 3px ; width: 300px; height: 100px ; padding:10px;
-     border-style:solid;border-color:#444444;text-align: center;border-radius: 5px;">
-    <span style="color: rgb(3, 255, 255);font-size:5mm; ">最新WARNING时间</span><br>
+<div id="text" style="border-width: 3px ; width: 350px; height: 100px ; padding:10px;
+     border-style:solid;border-color:#444444;text-align: left;border-radius: 5px;">
+    <span style="color: rgb(3, 255, 255);font-size:4mm; ">最新WARNING： </span>
     <span id="textvalue" style="color: rgb(45, 255, 255);font-size: 5mm; "></span>
 
 </div>
@@ -70,6 +74,7 @@
             dataType: 'json',
             traditional: true,
             success: function (result) {
+                console.log(divid);
                 chart.setOption(result);
             }
         });
@@ -97,10 +102,13 @@
     }
 
     function freshChart() {
-        echartDraw('gauge', 'white', "http://127.0.0.1:5000/gaugeChart")
-        echartDraw('pie', 'white', "http://127.0.0.1:5000/pieChart")
+        echartDraw('gauge', 'black', "http://127.0.0.1:5000/gaugeChart")
+        echartDraw('pie', 'black', "http://127.0.0.1:5000/pieChart")
+        echartDraw('stackline', 'black', "http://127.0.0.1:5000/stackline")
+        echartDraw('wordcnt', 'white', "http://127.0.0.1:5000/wordcnt")
+
         TableDraw('table', "http://127.0.0.1:5000/table")
-        echartDraw('bars', 'white', "http://127.0.0.1:5000/barChart")
+        echartDraw('bars', 'black', "http://127.0.0.1:5000/barChart")
         TextDraw('textvalue', '2021-07-23 15:32:32')
     }
 </script>
