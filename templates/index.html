@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>Awesome-pyecharts</title>
     <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts-wordcloud.min.js"></script>
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/templates/echarts.min.js"></script>
+    <script type="text/javascript" src="/templates/echarts-wordcloud.min.js"></script>
     <!--    <style>-->
     <!--        select {-->
     <!--            border: none;-->
@@ -29,6 +31,8 @@
         <!-- <button type="submit"  id="submit_data" >查询</button> -->
     </div>
 </form>
+<p>日期：<label for="datepicker"></label><input type="text" id="datepicker" size="30" onchange=print()>
+</p>
 
 
 <!--使用div放置图表位置-->
@@ -52,6 +56,13 @@
 </script>
 
 <script>
+    $("#datepicker").datepicker().datepicker("setDate", "-0d");
+
+    function print() {
+        let value = document.getElementById("datepicker").value;
+        console.log(value);
+    }
+
     function static_num() {
         let list = document.querySelectorAll('input'), vals = [];
         list.forEach(item => {
